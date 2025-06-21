@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Academia Tehnică Militară "Ferdinand I"</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style th:inline="css">
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 15px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-color: #f5f5f5;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url([[@{/atm.JPG}]]);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo img {
+            max-width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .logo h1 {
+            color: #1d419e;
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .logo p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1d419e;
+            box-shadow: 0 0 0 3px rgba(29, 65, 158, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1d419e 0%, #07112b 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 65, 158, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            background: rgba(254, 238, 238, 0.95);
+            color: #cc3333;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #cc3333;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .success-message {
+            background: rgba(239, 255, 239, 0.95);
+            color: #336633;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #336633;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* Mobile Specific Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            body::before {
+                filter: blur(5px);
+            }
+
+            .login-container {
+                padding: 25px 20px;
+                border-radius: 12px;
+                margin: 10px 0;
+            }
+
+            .logo h1 {
+                font-size: 18px;
+            }
+
+            .logo p {
+                font-size: 13px;
+            }
+
+            .logo img {
+                max-width: 70px;
+                margin-bottom: 12px;
+            }
+
+            .form-control {
+                padding: 14px 12px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+
+            .btn-login {
+                padding: 14px;
+                font-size: 16px;
+            }
+        }
+
+        /* Small Mobile Phones */
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+
+            .login-container {
+                padding: 20px 15px;
+                max-width: 100%;
+            }
+
+            .logo h1 {
+                font-size: 16px;
+                line-height: 1.2;
+            }
+
+            .logo p {
+                font-size: 12px;
+            }
+
+            .form-control {
+                padding: 12px 10px;
+            }
+
+            .btn-login {
+                padding: 12px;
+            }
+
+            .error-message,
+            .success-message {
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+
+        /* Landscape orientation on mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .login-container {
+                margin: 20px 0;
+                padding: 20px;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            .logo img {
+                max-width: 50px;
+                margin-bottom: 8px;
+            }
+
+            .logo h1 {
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+
+            .logo p {
+                font-size: 12px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .footer-text {
+                margin-top: 15px;
+                font-size: 12px;
+            }
+        }
+
+        /* Focus improvements for accessibility */
+        .form-control:focus,
+        .btn-login:focus {
+            outline: 2px solid #1d419e;
+            outline-offset: 2px;
+        }
+
+        /* Better touch targets */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-login {
+                min-height: 48px;
+            }
+
+            .form-control {
+                min-height: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <div class="logo">
+        <img th:src="@{/atm-logo.png}" alt="Academia Tehnică Militară Logo"/>
+        <h1>Academia Tehnică Militară "Ferdinand I"</h1>
+        <p>Portal de emitere diplome de licență electronice</p>
+    </div>
+
+    <div th:if="${param.error}" class="error-message">
+        <strong>Login Failed:</strong> Nume de utilizator sau parolă invalidă.
+    </div>
+
+    <div th:if="${param.logout}" class="success-message">
+        <strong>Logged Out:</strong> Ai fost deautentificat cu succes.
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label for="username">Nume de utilizator</label>
+            <input type="text" id="username" name="username" class="form-control"
+                   placeholder="ipopescu" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Parolă</label>
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="parolă" required>
+        </div>
+
+        <button type="submit" class="btn-login">Autentifică-te</button>
+    </form>
+
+    <div class="footer-text">
+        <p></p>
+    </div>
+</div>
+</body>
+</html>
