@@ -47,10 +47,16 @@
             <scope>test</scope>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.github.navzar05</groupId>-->
+<!--            <artifactId>core-authz-server-eudi</artifactId>-->
+<!--            <version>1.0.1</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>com.github.navzar05</groupId>
-            <artifactId>core-authz-server-eudi</artifactId>
-            <version>1.0.1</version>
+            <groupId>ro.mta</groupId>
+            <artifactId>core-authz-server</artifactId>
+            <version>1.0.3</version>
         </dependency>
 
         <!-- Database - H2 for development -->
